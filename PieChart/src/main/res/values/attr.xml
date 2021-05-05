@@ -7,8 +7,8 @@
             <enum name="innerOut" value="2" />
         </attr>
         <attr name="holeRadius" format="dimension" />
-        <attr name="textColor" format="color" />
-        <attr name="textSize" format="dimension" />
+        <attr name="itemTextColor" format="color" />
+        <attr name="itemTextSize" format="dimension" />
         <attr name="textFontFamily" format="reference" />
         <attr name="isDrawingHole" format="boolean" />
         <attr name="isDrawingText" format="boolean" />

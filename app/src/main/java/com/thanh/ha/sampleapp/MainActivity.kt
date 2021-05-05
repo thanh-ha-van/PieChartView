@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             PieItem(80f, getColor(R.color.purple_700), "日用品"),
             PieItem(100f, getColor(R.color.teal_700), "交際費"),
             PieItem(
-                120f, getColor(R.color.purple_200), "衣類"
+                120f, getColor(R.color.purple_200), "衣類\n衣類"
             ),
         )
         pieChartView.submitList(fakeList)

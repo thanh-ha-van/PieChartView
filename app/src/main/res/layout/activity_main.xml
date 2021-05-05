@@ -13,7 +13,7 @@
         android:id="@+id/pieChart"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:animationDuration="1500"
+        app:animationDuration="1000"
         app:animationType="goAround"
         app:holeRadius="40dp"
         app:isDrawingHole="true"
@@ -27,7 +27,8 @@
         app:shadowDx="0dp"
         app:shadowDy="20dp"
         app:shadowRadius="10dp"
-        app:textColor="@color/white" />
+        app:itemTextSize="14sp"
+        app:itemTextColor="@color/white" />
 
     <Button
         android:id="@+id/animateBtn"

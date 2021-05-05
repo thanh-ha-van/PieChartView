@@ -39,7 +39,7 @@ class PieChartView : View, PieChart {
     private var animationType = 1
     private var holeRadius = 100f
     private var textColor: Int = 0
-    private var textSize: Int = 0
+    private var itemTextSize: Float = 0f
     private var isDrawingHole = false
     private var isDrawingText = false
     private var isMultipleShadowColor = true
@@ -97,9 +97,8 @@ class PieChartView : View, PieChart {
                     getBoolean(R.styleable.PieChartView_isMultiColorShadow, true)
                 animationType = getInteger(R.styleable.PieChartView_animationType, 1)
                 holeRadius = getDimension(R.styleable.PieChartView_holeRadius, 0f)
-                textColor = getColor(R.styleable.PieChartView_textColor, Color.WHITE)
-                textSize =
-                    getInt(R.styleable.PieChartView_textSize, R.dimen.default_pie_chart_text_size)
+                textColor = getColor(R.styleable.PieChartView_itemTextColor, Color.WHITE)
+                itemTextSize = getDimension(R.styleable.PieChartView_itemTextSize, 14f)
 
                 isDrawingHole = getBoolean(R.styleable.PieChartView_isDrawingHole, false)
                 isDrawingText = getBoolean(R.styleable.PieChartView_isDrawingText, false)
@@ -114,7 +113,7 @@ class PieChartView : View, PieChart {
         }
     }
 
-    private fun calculateValue(){
+    private fun calculateValue() {
         textInterDistance = getTextInterDistance()
     }
 
@@ -126,7 +125,7 @@ class PieChartView : View, PieChart {
             isAntiAlias = true
             style = Paint.Style.FILL
             textAlign = Paint.Align.CENTER
-            textSize = 40f
+            textSize = itemTextSize.toFloat()
         }
     }
 
@@ -223,13 +222,16 @@ class PieChartView : View, PieChart {
         for (item in dataList) {
             val angle = getAngleBetween(item)
             canvas.translateBy(angle, textInterDistance)
-            canvas.drawText(item.value.toString(), 0f, 0f, textPaint)
+            val list = item.text.split('\n')
+            list.forEachIndexed { index, string ->
+                canvas.drawText(string, 0f, itemTextSize * index, textPaint)
+            }
             startAngle += item.value
             canvas.translateBy(angle, -textInterDistance)
         }
     }
 
-    private fun getTextInterDistance() = ((radius - holeRadius)/2 + holeRadius).toInt()
+    private fun getTextInterDistance() = ((radius - holeRadius) / 2 + holeRadius).toInt()
 
     private fun getCurrentPercent() = currentScale.toFloat() / ARC_FULL_ROTATION_DEGREE
 
