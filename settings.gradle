@@ -1,0 +1,3 @@
+include ':PieChart'
+include ':app'
+rootProject.name = "Sample App"

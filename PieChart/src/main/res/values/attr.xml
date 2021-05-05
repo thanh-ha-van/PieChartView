@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PieChartView">
+        <attr name="animationDuration" format="integer" />
+        <attr name="animationType" format="enum">
+            <enum name="goAround" value="1" />
+            <enum name="innerOut" value="2" />
+        </attr>
+        <attr name="holeRadius" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="textFontFamily" format="reference" />
+        <attr name="isDrawingHole" format="boolean" />
+        <attr name="isDrawingText" format="boolean" />
+        <attr name="shadowRadius" format="dimension" />
+        <attr name="shadowDx" format="dimension" />
+        <attr name="shadowDy" format="dimension" />
+        <attr name="shadowAlpha" format="float" />
+        <attr name="isMultiColorShadow" format="boolean" />
+    </declare-styleable>
+
+</resources>
