@@ -7,6 +7,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.AttrRes
+import androidx.core.content.res.ResourcesCompat
 import kotlin.math.roundToInt
 
 class PieChartView : View, PieChart {
@@ -37,8 +38,9 @@ class PieChartView : View, PieChart {
     private var animationTime = 1000L
 
     private var animationType = 1
-    private var holeRadius = 100f
+    private var holeRadius = 0f
     private var textColor: Int = 0
+    private var itemFont: Int = 0
     private var itemTextSize: Float = 0f
     private var isDrawingHole = false
     private var isDrawingText = false
@@ -96,10 +98,11 @@ class PieChartView : View, PieChart {
                 isMultipleShadowColor =
                     getBoolean(R.styleable.PieChartView_isMultiColorShadow, true)
                 animationType = getInteger(R.styleable.PieChartView_animationType, 1)
-                holeRadius = getDimension(R.styleable.PieChartView_holeRadius, 0f)
+
                 textColor = getColor(R.styleable.PieChartView_itemTextColor, Color.WHITE)
                 itemTextSize = getDimension(R.styleable.PieChartView_itemTextSize, 14f)
 
+                holeRadius = getDimension(R.styleable.PieChartView_holeRadius, 0f)
                 isDrawingHole = getBoolean(R.styleable.PieChartView_isDrawingHole, false)
                 isDrawingText = getBoolean(R.styleable.PieChartView_isDrawingText, false)
 
@@ -107,6 +110,7 @@ class PieChartView : View, PieChart {
                 shadowDx = getDimension(R.styleable.PieChartView_shadowDx, 0f)
                 shadowDy = getDimension(R.styleable.PieChartView_shadowDy, 10f)
                 shadowAlpha = getFloat(R.styleable.PieChartView_shadowAlpha, 0.3f)
+                itemFont = getResourceId(R.styleable.PieChartView_textFontFamily, 0)
             } finally {
                 recycle()
             }
@@ -120,12 +124,14 @@ class PieChartView : View, PieChart {
     private fun initTextPaint() {
         textPaint = Paint()
         textPaint.apply {
-            color = Color.WHITE
+            color = textColor
             isFakeBoldText
             isAntiAlias = true
             style = Paint.Style.FILL
             textAlign = Paint.Align.CENTER
-            textSize = itemTextSize.toFloat()
+            textSize = itemTextSize
+            if (itemFont > 0)
+                typeface = ResourcesCompat.getFont(context, itemFont)
         }
     }
 
@@ -214,7 +220,7 @@ class PieChartView : View, PieChart {
                 })
             startAngle += item.value
         }
-        canvas.drawCircle(0f, 0f, radius / 2, erasor)
+        canvas.drawCircle(0f, 0f, holeRadius, erasor)
     }
 
     private fun drawTextItems(canvas: Canvas) {
@@ -231,7 +237,8 @@ class PieChartView : View, PieChart {
         }
     }
 
-    private fun getTextInterDistance() = ((radius - holeRadius) / 2 + holeRadius).toInt()
+    private fun getTextInterDistance() =
+        ((radius - holeRadius) / 2 + holeRadius).toInt() + itemTextSize.toInt() / 2
 
     private fun getCurrentPercent() = currentScale.toFloat() / ARC_FULL_ROTATION_DEGREE
 
