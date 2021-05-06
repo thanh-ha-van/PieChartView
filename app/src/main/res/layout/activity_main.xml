@@ -25,7 +25,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shadowAlpha="0.3"
         app:shadowDx="0dp"
         app:shadowDy="20dp"
         app:shadowRadius="10dp"

@@ -131,7 +131,11 @@ class PieChartView : View, PieChart {
             textAlign = Paint.Align.CENTER
             textSize = itemTextSize
             if (itemFont > 0)
-                typeface = ResourcesCompat.getFont(context, itemFont)
+                try {
+                    typeface = ResourcesCompat.getFont(context, itemFont)
+                } catch (ex: Exception) {
+
+                }
         }
     }
 
@@ -230,7 +234,7 @@ class PieChartView : View, PieChart {
             canvas.translateBy(angle, textInterDistance)
             val list = item.text.split('\n')
             list.forEachIndexed { index, string ->
-                canvas.drawText(string, 0f, itemTextSize * index, textPaint)
+                canvas.drawText(string, 0f, itemTextSize * (index + 0.5f), textPaint)
             }
             startAngle += item.value
             canvas.translateBy(angle, -textInterDistance)
@@ -238,7 +242,7 @@ class PieChartView : View, PieChart {
     }
 
     private fun getTextInterDistance() =
-        ((radius - holeRadius) / 2 + holeRadius).toInt() + itemTextSize.toInt() / 2
+        (((radius - holeRadius) / 2 + holeRadius) + itemTextSize / 2).toInt()
 
     private fun getCurrentPercent() = currentScale.toFloat() / ARC_FULL_ROTATION_DEGREE
 
