@@ -80,7 +80,7 @@
         android:layout_height="200dp"
         app:animationDuration="1000"
         app:animationType="goAround"
-        app:holeRadius="40dp"
+        app:holeRadius="0dp"
         app:initAngle="0"
         app:isDrawingHole="true"
         app:isDrawingText="true"

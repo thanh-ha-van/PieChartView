@@ -70,10 +70,9 @@ class PieChartView : View {
         init(attributes)
         if(isInEditMode){
             val fakeList2 = listOf(
-                PieItem(60f, Color.YELLOW),
-                PieItem(100f, Color.GREEN),
-                PieItem(80f, Color.BLUE),
                 PieItem(120f, Color.RED),
+                PieItem(120f, Color.GREEN),
+                PieItem(120f, Color.BLUE),
             )
 
             submitList(fakeList2)
