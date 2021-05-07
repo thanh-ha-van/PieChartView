@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,109 +10,126 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <com.thanh.ha.piechart.PieChartView
-        android:id="@+id/pieChart"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:animationDuration="1000"
-        app:animationType="goAround"
-        app:holeRadius="20dp"
-        app:initAngle="-120"
-        app:isDrawingHole="true"
-        app:isDrawingText="true"
-        app:isMultiColorShadow="true"
-        app:itemTextColor="@color/white"
-        app:itemTextSize="12sp"
-        app:animateDirection="counterclockwise"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shadowDx="0dp"
-        app:shadowDy="10dp"
-        app:shadowRadius="10dp"
-        app:strokeWidth="10dp"
-        app:textFontFamily="@font/noto_sans_jp_bold" />
-
-    <com.thanh.ha.piechart.PieChartView
-        android:id="@+id/pieChart2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:animationDuration="1000"
-        app:animationType="goAround"
-        app:holeRadius="20dp"
-        app:initAngle="-90"
-        app:isDrawingHole="true"
-        app:isDrawingText="true"
-        app:isMultiColorShadow="true"
-        app:itemTextColor="@color/white"
-        app:itemTextSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pieChart"
-        app:pieStyle="stroke"
-        app:shadowDx="0dp"
-        app:shadowDy="10dp"
-        app:shadowRadius="10dp"
-        app:textFontFamily="@font/noto_sans_jp_bold" />
-
-    <com.thanh.ha.piechart.PieChartView
-        android:id="@+id/pieChart3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:animationDuration="1000"
-        app:animationType="innerOut"
-        app:holeRadius="40dp"
-        app:initAngle="90"
-        app:isDrawingHole="true"
-        app:isDrawingText="true"
-        app:isMultiColorShadow="true"
-        app:itemTextColor="@color/white"
-        app:itemTextSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pieChart"
-        app:pieStyle="stroke"
-        app:shadowDx="0dp"
-        app:shadowDy="10dp"
-        app:shadowRadius="10dp"
-        app:textFontFamily="@font/noto_sans_jp_bold" />
-
-    <com.thanh.ha.piechart.PieChartView
-        android:id="@+id/pieChart4"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:animationDuration="1000"
-        app:animationType="goAround"
-        app:holeRadius="0dp"
-        app:initAngle="0"
-        app:isDrawingHole="true"
-        app:isDrawingText="true"
-        app:isMultiColorShadow="false"
-        app:itemTextColor="@color/white"
-        app:itemTextSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pieChart3"
-        app:pieStyle="stroke"
-        app:shadowDx="0dp"
-        app:shadowDy="10dp"
-        app:shadowRadius="10dp"
-        app:textFontFamily="@font/noto_sans_jp_bold" />
-
-    <Button
-        android:id="@+id/animateBtn"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Animate 180"
-        app:layout_constraintEnd_toStartOf="@+id/animateBtn2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pieChart3" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/animateBtn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Animate 360"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/animateBtn"
-        app:layout_constraintTop_toTopOf="@+id/animateBtn" />
+        <com.thanh.ha.piechart.PieChartView
+            android:id="@+id/pieChart"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:animateDirection="counterclockwise"
+            app:animationDuration="1000"
+            app:animationType="goAround"
+            app:initAngle="-120"
+            app:isDrawingHole="true"
+            app:isDrawingText="true"
+            app:isMultiColorShadow="true"
+            app:itemTextColor="@color/white"
+            app:itemTextSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shadowAlpha="0.2"
+            app:shadowDx="10dp"
+            app:shadowDy="10dp"
+            app:shadowRadius="10dp"
+            app:textFontFamily="@font/noto_sans_jp_bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/pieChart3" />
+
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="500dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/pieChart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/pieChart" />
+
+        <com.thanh.ha.piechart.PieChartView
+            android:id="@+id/pieChart2"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:animationDuration="1000"
+            app:animationType="goAround"
+            app:initAngle="-90"
+            app:isDrawingHole="true"
+            app:isDrawingText="true"
+            app:isMultiColorShadow="true"
+            app:itemTextColor="@color/white"
+            app:itemTextSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pieChart"
+            app:shadowRadius="10dp"
+            app:strokeWidth="50dp"
+            app:shadowDy="5dp"
+            app:shadowDx="5dp"
+            app:textFontFamily="@font/noto_sans_jp_bold" />
+
+        <com.thanh.ha.piechart.PieChartView
+            android:id="@+id/pieChart3"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:animationDuration="1000"
+            app:animationType="innerOut"
+            app:initAngle="90"
+            app:isDrawingHole="true"
+            app:isDrawingText="true"
+            app:isMultiColorShadow="false"
+            app:itemTextColor="@color/white"
+            app:itemTextSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChart"
+            app:shadowAlpha="0.5"
+            app:strokeWidth="10dp"
+            app:textFontFamily="@font/noto_sans_jp_bold" />
+
+        <com.thanh.ha.piechart.PieChartView
+            android:id="@+id/pieChart4"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:animationDuration="1000"
+            app:animationType="goAround"
+            app:initAngle="0"
+            app:isDrawingHole="true"
+            app:isDrawingText="true"
+            app:isMultiColorShadow="false"
+            app:itemTextColor="@color/white"
+            app:itemTextSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pieChart3"
+            app:shadowDx="0dp"
+            app:shadowDy="10dp"
+            app:shadowRadius="10dp"
+            app:textFontFamily="@font/noto_sans_jp_bold" />
+
+        <Button
+            android:id="@+id/animateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Animate 180"
+            app:layout_constraintEnd_toStartOf="@+id/animateBtn2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pieChart3" />
+
+        <Button
+            android:id="@+id/animateBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animate 360"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/animateBtn"
+            app:layout_constraintTop_toTopOf="@+id/animateBtn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

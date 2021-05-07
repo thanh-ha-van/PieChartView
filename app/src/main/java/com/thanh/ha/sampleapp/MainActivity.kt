@@ -22,17 +22,14 @@ class MainActivity : AppCompatActivity() {
             PieItem(40f, getColor(R.color.red), "日用"),
             PieItem(80f, getColor(R.color.purple_700), "日用品"),
             PieItem(100f, getColor(R.color.teal_700), "交際費"),
-            PieItem(
-                120f, getColor(R.color.purple_200), "衣類\n衣類"
-            ),
+            PieItem(120f, getColor(R.color.purple_200), "衣類\n衣類"),
         )
         val fakeList2 = listOf(
             PieItem(20f, getColor(R.color.purple_500)),
             PieItem(40f, getColor(R.color.red)),
             PieItem(80f, getColor(R.color.purple_700)),
             PieItem(100f, getColor(R.color.teal_700)),
-            PieItem(
-                120f, getColor(R.color.purple_200)
+            PieItem(120f, getColor(R.color.purple_200)
             ),
         )
 
@@ -58,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             pieChartView4.animateProgress(0, 180)
         }
         findViewById<Button>(R.id.animateBtn2).setOnClickListener {
-            pieChartView.animateProgress(0, 300)
+            pieChartView.animateProgress(0, 360)
             pieChartView2.animateProgress(0, 360)
             pieChartView3.animateProgress(0, 360)
             pieChartView4.animateProgress(0, 360)

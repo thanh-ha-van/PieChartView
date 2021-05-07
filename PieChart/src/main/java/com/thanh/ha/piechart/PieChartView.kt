@@ -10,8 +10,8 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.AttrRes
-import androidx.core.content.ContextCompat.getColor
-import kotlin.math.PI
+import kotlin.math.max
+import kotlin.math.roundToInt
 
 class PieChartView : View {
 
@@ -28,7 +28,6 @@ class PieChartView : View {
     private lateinit var mainPaint: Paint
     private lateinit var shadowPaint: Paint
     private lateinit var textPaint: Paint
-    private lateinit var erasor: Paint
 
     private val dataList: MutableList<PieItem> = mutableListOf()
 
@@ -41,7 +40,6 @@ class PieChartView : View {
     private var animationTime = 1000L
 
     private var animationType = 0
-    private var holeRadius = 0f
     private var textColor: Int = 0
     private var itemFont: Int = 0
     private var itemTextSize: Float = 0f
@@ -68,7 +66,7 @@ class PieChartView : View {
         defStyleAttr
     ) {
         init(attributes)
-        if(isInEditMode){
+        if (isInEditMode) {
             val fakeList2 = listOf(
                 PieItem(120f, Color.RED),
                 PieItem(120f, Color.GREEN),
@@ -127,18 +125,15 @@ class PieChartView : View {
                 initAngle = getInteger(R.styleable.PieChartView_initAngle, 0).toFloat()
                 textColor = getColor(R.styleable.PieChartView_itemTextColor, Color.WHITE)
                 itemTextSize = getDimension(R.styleable.PieChartView_itemTextSize, 14f)
-
-                holeRadius = getDimension(R.styleable.PieChartView_holeRadius, 0f)
                 isDrawingHole = getBoolean(R.styleable.PieChartView_isDrawingHole, false)
                 isDrawingText = getBoolean(R.styleable.PieChartView_isDrawingText, false)
 
-                shadowRadius = getDimension(R.styleable.PieChartView_shadowRadius, 10f)
+                shadowRadius = getDimension(R.styleable.PieChartView_shadowRadius, 0f)
                 shadowDx = getDimension(R.styleable.PieChartView_shadowDx, 0f)
-                shadowDy = getDimension(R.styleable.PieChartView_shadowDy, 10f)
+                shadowDy = getDimension(R.styleable.PieChartView_shadowDy, 0f)
                 shadowAlpha = getFloat(R.styleable.PieChartView_shadowAlpha, 0.3f)
                 itemFont = getResourceId(R.styleable.PieChartView_textFontFamily, 0)
-                pieStyle = getInt(R.styleable.PieChartView_pieStyle, 0)
-                strokeWidth = getDimension(R.styleable.PieChartView_strokeWidth, 20f)
+                strokeWidth = getDimension(R.styleable.PieChartView_strokeWidth, 100f)
                 isCounterClockWise = getInteger(R.styleable.PieChartView_animateDirection, 0) == 1
             } finally {
                 recycle()
@@ -148,15 +143,22 @@ class PieChartView : View {
 
     private fun calculateValues() {
         radius = calculateRadius(measuredWidth.toFloat(), measuredHeight.toFloat())
-        textInterDistance = getTextInterDistance()
+        strokeWidth = strokeWidth.coerceAtMost(radius)
+        val ovalRadius = radius - strokeWidth / 2
+        textInterDistance = (radius - strokeWidth / 2).toInt()
+        oval.set(
+            -ovalRadius,
+            -ovalRadius,
+            ovalRadius,
+            ovalRadius
+        )
     }
 
     private fun initPaints() {
         with(PaintManager) {
-            mainPaint = initMainPaint(pieStyle, strokeWidth)
-            shadowPaint = initShadowPaint(shadowAlpha, pieStyle, strokeWidth)
+            mainPaint = initMainPaint(strokeWidth)
+            shadowPaint = initShadowPaint(shadowAlpha, strokeWidth)
             textPaint = initTextPaint(context, textColor, itemTextSize, itemFont)
-            erasor = initEraser()
         }
     }
 
@@ -174,7 +176,7 @@ class PieChartView : View {
             height / 2
         } else {
             width / 2
-        } - ((shadowDx + shadowDy + shadowRadius) * PI / 2).toFloat()
+        } - (max(shadowDx, shadowDy) + shadowRadius)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -185,28 +187,28 @@ class PieChartView : View {
         } else {
             drawSingleShadow(canvas)
         }
-        drawHole(canvas)
         drawPieItems(canvas)
         drawTextItems(canvas)
     }
 
     private fun drawSingleShadow(canvas: Canvas) {
         resetAngle()
-        oval.set(-radius, -radius, radius, radius)
         canvas.drawArc(
             oval,
             getStarAngle(),
-            currentScale.toFloat(),
+            currentScale.toFloat() * when (isCounterClockWise) {
+                true -> -1
+                else -> 1
+            },
             isStrokeMode(),
             shadowPaint.apply {
-                alpha = 36
+                alpha = ((shadowAlpha * 256) % 256).roundToInt()
                 setShadowLayer(shadowRadius, shadowDx, shadowDy, Color.BLACK)
             })
     }
 
     private fun drawShadow(canvas: Canvas) {
         resetAngle()
-        oval.set(-radius, -radius, radius, radius)
         for (item in dataList) {
             canvas.drawArc(
                 oval,
@@ -220,35 +222,19 @@ class PieChartView : View {
         }
     }
 
-    private fun drawHole(canvas: Canvas) {
-        if (isStrokeMode()) {
-            canvas.drawCircle(0f, 0f, radius, erasor)
-        }
-    }
-
     private fun drawPieItems(canvas: Canvas) {
         resetAngle()
-
-        oval.set(
-            -radius,
-            -radius,
-            radius,
-            radius
-        )
         for (item in dataList) {
             canvas.drawArc(
                 oval,
                 getStarAngle(),
                 getItemValue(item),
-                isStrokeMode(),
+                false,
                 mainPaint.apply {
                     setShadowLayer(0f, 0f, 0f, item.color)
                     color = item.color
                 })
             currentAngle += item.value
-        }
-        if (isStrokeMode()) {
-            canvas.drawCircle(0f, 0f, holeRadius, erasor)
         }
     }
 
@@ -276,9 +262,6 @@ class PieChartView : View {
     private fun resetAngle() {
         currentAngle = initAngle
     }
-
-    private fun getTextInterDistance() =
-        (((radius - holeRadius) / 2 + holeRadius) + itemTextSize / 2).toInt()
 
     private fun getCurrentPercent() = currentScale.toFloat() / ARC_FULL_ROTATION_DEGREE
 

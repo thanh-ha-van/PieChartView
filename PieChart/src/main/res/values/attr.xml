@@ -6,7 +6,6 @@
             <enum name="goAround" value="0" />
             <enum name="innerOut" value="1" />
         </attr>
-        <attr name="holeRadius" format="dimension" />
         <attr name="initAngle" format="integer" />
         <attr name="itemTextColor" format="color" />
         <attr name="itemTextSize" format="dimension" />
@@ -21,11 +20,7 @@
         </attr>
         <attr name="shadowDy" format="dimension" />
         <attr name="shadowAlpha" format="float" />
-        <attr name="pieStyle" format="enum">
-            <enum name="fill" value="0" />
-            <enum name="stroke" value="1" />
-        </attr>
-        <attr name="strokeWidth" format="dimension" />
+        <attr name="strokeWidth" format="dimension"/>
         <attr name="isMultiColorShadow" format="boolean" />
     </declare-styleable>
 
