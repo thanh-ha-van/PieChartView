@@ -1,7 +1,8 @@
 package com.thanh.ha.piechart
 
 import android.graphics.Canvas
-import kotlin.math.*
+import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * Translate canvas by a vector which is a combination of an angle and a distance.
@@ -12,7 +13,7 @@ import kotlin.math.*
  */
 fun Canvas.translateBy(angle: Float, distance: Int) {
 
-    val pureDegree = angle%360
+    val pureDegree = angle % 360
 
     val degree = Math.toRadians(pureDegree.toDouble())
 
@@ -21,4 +22,17 @@ fun Canvas.translateBy(angle: Float, distance: Int) {
     val yShift = (sin(degree) * distance).toFloat()
 
     this.translate(xShift, yShift)
+}
+
+fun getVectorXY(angle: Float, distance: Int): Pair<Float, Float> {
+
+    val pureDegree = angle % 360
+
+    val degree = Math.toRadians(pureDegree.toDouble())
+
+    val xShift = (cos(degree) * distance).toFloat()
+
+    val yShift = (sin(degree) * distance).toFloat()
+
+    return Pair(xShift, yShift)
 }

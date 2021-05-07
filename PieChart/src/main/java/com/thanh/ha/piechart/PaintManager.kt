@@ -32,6 +32,8 @@ object PaintManager {
         eraser.apply {
             isAntiAlias = true
             xfermode = clearMode
+            style = Paint.Style.STROKE
+            strokeWidth = 2f
         }
         return eraser
     }

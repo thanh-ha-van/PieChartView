@@ -28,6 +28,7 @@ class PieChartView : View {
     private lateinit var mainPaint: Paint
     private lateinit var shadowPaint: Paint
     private lateinit var textPaint: Paint
+    private lateinit var erasor: Paint
 
     private val dataList: MutableList<PieItem> = mutableListOf()
 
@@ -159,6 +160,7 @@ class PieChartView : View {
             mainPaint = initMainPaint(strokeWidth)
             shadowPaint = initShadowPaint(shadowAlpha, strokeWidth)
             textPaint = initTextPaint(context, textColor, itemTextSize, itemFont)
+            erasor = initEraser()
         }
     }
 
@@ -234,7 +236,13 @@ class PieChartView : View {
                     setShadowLayer(0f, 0f, 0f, item.color)
                     color = item.color
                 })
+//            val xyStart =
+//                getVectorXY(getStarAngle() + getItemValue(item), (radius - strokeWidth).toInt())
+//            val xyEnd = getVectorXY(getStarAngle() + getItemValue(item), radius.toInt())
+          //  canvas.drawLine(xyStart.first, xyStart.second, xyEnd.first, xyEnd.second, erasor)
             currentAngle += item.value
+
+
         }
     }
 

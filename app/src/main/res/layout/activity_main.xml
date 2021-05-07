@@ -72,8 +72,8 @@
             app:layout_constraintTop_toTopOf="@id/pieChart"
             app:shadowRadius="10dp"
             app:strokeWidth="50dp"
-            app:shadowDy="5dp"
-            app:shadowDx="5dp"
+            app:shadowAlpha="0.5"
+            app:shadowDy="10dp"
             app:textFontFamily="@font/noto_sans_jp_bold" />
 
         <com.thanh.ha.piechart.PieChartView
