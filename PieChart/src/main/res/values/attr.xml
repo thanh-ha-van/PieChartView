@@ -3,10 +3,11 @@
     <declare-styleable name="PieChartView">
         <attr name="animationDuration" format="integer" />
         <attr name="animationType" format="enum">
-            <enum name="goAround" value="1" />
-            <enum name="innerOut" value="2" />
+            <enum name="goAround" value="0" />
+            <enum name="innerOut" value="1" />
         </attr>
         <attr name="holeRadius" format="dimension" />
+        <attr name="initAngle" format="integer" />
         <attr name="itemTextColor" format="color" />
         <attr name="itemTextSize" format="dimension" />
         <attr name="textFontFamily" format="reference" />
@@ -14,8 +15,17 @@
         <attr name="isDrawingText" format="boolean" />
         <attr name="shadowRadius" format="dimension" />
         <attr name="shadowDx" format="dimension" />
+        <attr name="animateDirection" format="enum">
+            <enum name="clockwise" value="0" />
+            <enum name="counterclockwise" value="1" />
+        </attr>
         <attr name="shadowDy" format="dimension" />
         <attr name="shadowAlpha" format="float" />
+        <attr name="pieStyle" format="enum">
+            <enum name="fill" value="0" />
+            <enum name="stroke" value="1" />
+        </attr>
+        <attr name="strokeWidth" format="dimension" />
         <attr name="isMultiColorShadow" format="boolean" />
     </declare-styleable>
 
