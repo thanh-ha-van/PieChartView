@@ -8,7 +8,7 @@
             <enum name="oneByOne" value="2" />
         </attr>
         <attr name="initAngle" format="integer" />
-        <attr name="pieStrokeWidth" format="dimension"/>
+        <attr name="pieStrokeWidth" format="dimension" />
         <attr name="itemTextColor" format="color" />
         <attr name="itemTextSize" format="dimension" />
         <attr name="textFontFamily" format="reference" />
@@ -20,6 +20,7 @@
         </attr>
         <attr name="shadowDy" format="dimension" />
         <attr name="shadowAlpha" format="float" />
+        <attr name="strokeRadius" format="dimension" />
         <attr name="isMultiColorShadow" format="boolean" />
     </declare-styleable>
 

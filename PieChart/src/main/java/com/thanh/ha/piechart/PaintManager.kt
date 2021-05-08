@@ -48,7 +48,7 @@ object PaintManager {
         return eraser
     }
 
-    fun initMainPaint(strokeWidth: Float): Paint {
+    fun initMainPaint(strokeWidth: Float, strokeRadius: Float): Paint {
 
         val mainPaint = Paint()
         mainPaint.apply {
@@ -56,9 +56,12 @@ object PaintManager {
             color = Color.BLACK
             style = Paint.Style.STROKE
             this.strokeWidth = strokeWidth
-            strokeCap = Paint.Cap.BUTT
+            strokeCap = when (strokeRadius >= 1f) {
+                true -> Paint.Cap.ROUND
+                else -> Paint.Cap.BUTT
+            }
             strokeJoin = Paint.Join.ROUND
-            pathEffect = CornerPathEffect(strokeWidth / 2)
+            pathEffect = CornerPathEffect(strokeRadius)
         }
         return mainPaint
     }

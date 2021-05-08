@@ -50,7 +50,7 @@ class PieChart : View {
     private var shadowAlpha = 0.3f
     private var strokeWidth = 0f
     private var clockWiseMultiplier = 1
-
+    private var strokeRadius = 0f
     private val oval = RectF()
 
     constructor(context: Context) : this(context, null, 0)
@@ -65,8 +65,9 @@ class PieChart : View {
         init(attributes)
         if (isInEditMode) {
             val fakeList2 = listOf(
-                PieItem(120f, Color.RED),
-                PieItem(120f, Color.GREEN),
+                PieItem(40f, Color.RED),
+                PieItem(80f, Color.GREEN),
+                PieItem(120f, Color.YELLOW),
                 PieItem(120f, Color.BLUE),
             )
             submitList(fakeList2)
@@ -129,6 +130,7 @@ class PieChart : View {
                 itemFont = getResourceId(R.styleable.PieChart_textFontFamily, 0)
                 strokeWidth = getDimension(R.styleable.PieChart_pieStrokeWidth, 100f)
                 clockWiseMultiplier = getInteger(R.styleable.PieChart_animateDirection, 1)
+                strokeRadius = getDimension(R.styleable.PieChart_strokeRadius, 0f)
             } finally {
                 recycle()
             }
@@ -152,7 +154,7 @@ class PieChart : View {
 
     private fun initPaints() {
         with(PaintManager) {
-            mainPaint = initMainPaint(strokeWidth)
+            mainPaint = initMainPaint(strokeWidth, strokeRadius)
             shadowPaint = initShadowPaint(shadowAlpha, strokeWidth)
             textPaint = initTextPaint(context, textColor, itemTextSize, itemFont)
             erasor = initEraser()
@@ -222,7 +224,6 @@ class PieChart : View {
                 getItemValue(item),
                 false,
                 mainPaint.apply {
-                    setShadowLayer(0f, 0f, 0f, item.color)
                     color = item.color
                 })
 //            val xyStart =
