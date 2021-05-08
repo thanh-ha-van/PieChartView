@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.thanh.ha.piechart.PieChartView
+import com.thanh.ha.piechart.PieChart
 import com.thanh.ha.piechart.PieItem
 import java.util.*
 
@@ -13,16 +13,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val pieChartView = findViewById<PieChartView>(R.id.pieChart)
-        val pieChartView2 = findViewById<PieChartView>(R.id.pieChart2)
-        val pieChartView3 = findViewById<PieChartView>(R.id.pieChart3)
-        val pieChartView4 = findViewById<PieChartView>(R.id.pieChart4)
+        val pieChartView = findViewById<PieChart>(R.id.pieChart)
+        val pieChartView2 = findViewById<PieChart>(R.id.pieChart2)
+        val pieChartView3 = findViewById<PieChart>(R.id.pieChart3)
+        val pieChartView4 = findViewById<PieChart>(R.id.pieChart4)
         val fakeList = listOf(
-            PieItem(20f, getColor(R.color.purple_500), "用"),
-            PieItem(40f, getColor(R.color.red), "日用"),
-            PieItem(80f, getColor(R.color.purple_700), "日用品"),
-            PieItem(100f, getColor(R.color.teal_700), "交際費"),
-            PieItem(120f, getColor(R.color.purple_200), "衣類\n衣類"),
+            PieItem(20f, getColor(R.color.purple_500), "Food"),
+            PieItem(40f, getColor(R.color.red), "Stuff"),
+            PieItem(80f, getColor(R.color.purple_700), "Petrol"),
+            PieItem(100f, getColor(R.color.teal_700), "Room"),
+            PieItem(120f, getColor(R.color.purple_200), "Others\n stuff"),
         )
         val fakeList2 = listOf(
             PieItem(20f, getColor(R.color.purple_500)),

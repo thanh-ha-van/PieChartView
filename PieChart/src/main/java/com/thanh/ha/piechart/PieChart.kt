@@ -13,13 +13,14 @@ import androidx.annotation.AttrRes
 import kotlin.math.max
 import kotlin.math.roundToInt
 
-class PieChartView : View {
+class PieChart : View {
 
     companion object {
         const val ARC_FULL_ROTATION_DEGREE = 360
         const val PERCENTAGE_VALUE_HOLDER = "percentage"
     }
 
+    // for animation properties
     private var currentScale = 360
     private var initAngle = 0f
     private var currentAngle = 0f
@@ -35,8 +36,6 @@ class PieChartView : View {
     private var radius: Float = 0f
     private var widthFloat: Float = 0f
     private var heightFloat: Float = 0f
-    private var centerX: Float = 0f
-    private var centerY: Float = 0f
 
     private var animationTime = 1000L
 
@@ -44,16 +43,13 @@ class PieChartView : View {
     private var textColor: Int = 0
     private var itemFont: Int = 0
     private var itemTextSize: Float = 0f
-    private var isDrawingHole = false
-    private var isDrawingText = false
     private var isMultipleShadowColor = true
     private var shadowRadius = 0f
     private var shadowDx = 0f
     private var shadowDy = 0f
     private var shadowAlpha = 0.3f
-    private var pieStyle = 0
     private var strokeWidth = 0f
-    private var isCounterClockWise = false
+    private var clockWiseMultiplier = 1
 
     private val oval = RectF()
 
@@ -73,14 +69,13 @@ class PieChartView : View {
                 PieItem(120f, Color.GREEN),
                 PieItem(120f, Color.BLUE),
             )
-
             submitList(fakeList2)
         }
     }
 
     fun submitList(arrayList: List<PieItem>) {
         dataList.clear()
-        if (isCounterClockWise) {
+        if (clockWiseMultiplier == -1) {
             dataList.addAll(arrayList.map {
                 it.copy(
                     value = -it.value
@@ -114,28 +109,26 @@ class PieChartView : View {
     private fun initAttributes(attrs: AttributeSet) {
         context.theme.obtainStyledAttributes(
             attrs,
-            R.styleable.PieChartView,
+            R.styleable.PieChart,
             0, 0
         ).apply {
             try {
                 animationTime =
-                    getInteger(R.styleable.PieChartView_animationDuration, 1000).toLong()
+                    getInteger(R.styleable.PieChart_animationDuration, 1000).toLong()
                 isMultipleShadowColor =
-                    getBoolean(R.styleable.PieChartView_isMultiColorShadow, true)
-                animationType = getInteger(R.styleable.PieChartView_animationType, 0)
-                initAngle = getInteger(R.styleable.PieChartView_initAngle, 0).toFloat()
-                textColor = getColor(R.styleable.PieChartView_itemTextColor, Color.WHITE)
-                itemTextSize = getDimension(R.styleable.PieChartView_itemTextSize, 14f)
-                isDrawingHole = getBoolean(R.styleable.PieChartView_isDrawingHole, false)
-                isDrawingText = getBoolean(R.styleable.PieChartView_isDrawingText, false)
+                    getBoolean(R.styleable.PieChart_isMultiColorShadow, true)
+                animationType = getInteger(R.styleable.PieChart_animationType, 0)
+                initAngle = getInteger(R.styleable.PieChart_initAngle, 0).toFloat()
+                textColor = getColor(R.styleable.PieChart_itemTextColor, Color.WHITE)
+                itemTextSize = getDimension(R.styleable.PieChart_itemTextSize, 14f)
 
-                shadowRadius = getDimension(R.styleable.PieChartView_shadowRadius, 0f)
-                shadowDx = getDimension(R.styleable.PieChartView_shadowDx, 0f)
-                shadowDy = getDimension(R.styleable.PieChartView_shadowDy, 0f)
-                shadowAlpha = getFloat(R.styleable.PieChartView_shadowAlpha, 0.3f)
-                itemFont = getResourceId(R.styleable.PieChartView_textFontFamily, 0)
-                strokeWidth = getDimension(R.styleable.PieChartView_strokeWidth, 100f)
-                isCounterClockWise = getInteger(R.styleable.PieChartView_animateDirection, 0) == 1
+                shadowRadius = getDimension(R.styleable.PieChart_shadowRadius, 0f)
+                shadowDx = getDimension(R.styleable.PieChart_shadowDx, 0f)
+                shadowDy = getDimension(R.styleable.PieChart_shadowDy, 0f)
+                shadowAlpha = getFloat(R.styleable.PieChart_shadowAlpha, 0.3f)
+                itemFont = getResourceId(R.styleable.PieChart_textFontFamily, 0)
+                strokeWidth = getDimension(R.styleable.PieChart_pieStrokeWidth, 100f)
+                clockWiseMultiplier = getInteger(R.styleable.PieChart_animateDirection, 1)
             } finally {
                 recycle()
             }
@@ -143,6 +136,8 @@ class PieChartView : View {
     }
 
     private fun calculateValues() {
+        widthFloat = measuredWidth.toFloat()
+        heightFloat = measuredWidth.toFloat()
         radius = calculateRadius(measuredWidth.toFloat(), measuredHeight.toFloat())
         strokeWidth = strokeWidth.coerceAtMost(radius)
         val ovalRadius = radius - strokeWidth / 2
@@ -170,10 +165,6 @@ class PieChartView : View {
     }
 
     private fun calculateRadius(width: Float, height: Float): Float {
-        centerX = width / 2
-        centerY = height / 2
-        widthFloat = width
-        heightFloat = height
         return if (width > height) {
             height / 2
         } else {
@@ -183,6 +174,7 @@ class PieChartView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        // translate into center of view
         canvas.translate(widthFloat / 2, heightFloat / 2)
         if (isMultipleShadowColor) {
             drawShadow(canvas)
@@ -198,11 +190,8 @@ class PieChartView : View {
         canvas.drawArc(
             oval,
             getStarAngle(),
-            currentScale.toFloat() * when (isCounterClockWise) {
-                true -> -1
-                else -> 1
-            },
-            isStrokeMode(),
+            currentScale.toFloat() * clockWiseMultiplier,
+            false,
             shadowPaint.apply {
                 alpha = ((shadowAlpha * 256) % 256).roundToInt()
                 setShadowLayer(shadowRadius, shadowDx, shadowDy, Color.BLACK)
@@ -216,7 +205,7 @@ class PieChartView : View {
                 oval,
                 getStarAngle(),
                 getItemValue(item),
-                isStrokeMode(),
+                false,
                 shadowPaint.apply {
                     setShadowLayer(shadowRadius, shadowDx, shadowDy, item.color)
                 })
@@ -239,15 +228,11 @@ class PieChartView : View {
 //            val xyStart =
 //                getVectorXY(getStarAngle() + getItemValue(item), (radius - strokeWidth).toInt())
 //            val xyEnd = getVectorXY(getStarAngle() + getItemValue(item), radius.toInt())
-          //  canvas.drawLine(xyStart.first, xyStart.second, xyEnd.first, xyEnd.second, erasor)
+            //  canvas.drawLine(xyStart.first, xyStart.second, xyEnd.first, xyEnd.second, erasor)
             currentAngle += item.value
 
 
         }
-    }
-
-    private fun isStrokeMode(): Boolean {
-        return pieStyle == 1
     }
 
     private fun drawTextItems(canvas: Canvas) {

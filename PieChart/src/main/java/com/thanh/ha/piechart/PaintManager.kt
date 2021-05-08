@@ -5,8 +5,13 @@ import android.graphics.*
 import androidx.core.content.res.ResourcesCompat
 import kotlin.math.roundToInt
 
+//TODO : review this object
 object PaintManager {
 
+    /**
+     * Return main text for the chart.
+     * I don't know if i should place this func here... inside and object.
+     */
     fun initTextPaint(context: Context, textColor: Int, textSize: Float, font: Int): Paint {
         val textPaint = Paint()
         textPaint.apply {
@@ -25,6 +30,11 @@ object PaintManager {
         }
         return textPaint
     }
+
+    /**
+     * Return main Eraser for the chart.
+     * I don't know if i should place this func here... inside and object.
+     */
 
     fun initEraser(): Paint {
         val clearMode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
