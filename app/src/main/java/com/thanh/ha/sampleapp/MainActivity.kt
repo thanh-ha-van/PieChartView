@@ -44,20 +44,20 @@ class MainActivity : AppCompatActivity() {
         pieChartView2.submitList(fakeList)
         pieChartView2.animateProgress(0, 360)
         pieChartView3.submitList(fakeList2)
-        pieChartView3.animateProgress(0, 360)
+        pieChartView3.animateProgress(0, 300)
         pieChartView4.submitList(performTestList)
         pieChartView4.animateProgress(0, 360)
 
         findViewById<Button>(R.id.animateBtn).setOnClickListener {
             pieChartView.animateProgress(0, 180)
             pieChartView2.animateProgress(0, 180)
-            pieChartView3.animateProgress(0, 180)
+            pieChartView3.animateProgress(0, 300)
             pieChartView4.animateProgress(0, 180)
         }
         findViewById<Button>(R.id.animateBtn2).setOnClickListener {
             pieChartView.animateProgress(0, 360)
             pieChartView2.animateProgress(0, 360)
-            pieChartView3.animateProgress(0, 360)
+            pieChartView3.animateProgress(0, 300)
             pieChartView4.animateProgress(0, 360)
         }
     }
