@@ -71,9 +71,10 @@ object PaintManager {
         val shadowPaint = Paint()
         shadowPaint.apply {
             isAntiAlias = true
+            isDither = true
             alpha = ((shadowAlpha * 256) % 256).roundToInt()
             style = Paint.Style.STROKE
-            strokeWidth = width
+            strokeWidth = width * 0.9f
         }
         return shadowPaint
     }

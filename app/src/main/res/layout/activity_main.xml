@@ -30,7 +30,7 @@
             app:itemTextSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:pieStrokeWidth="15dp"
+            app:pieStrokeWidth="70dp"
             app:shadowAlpha="0.2"
             app:shadowDy="10dp"
             app:shadowRadius="10dp"
