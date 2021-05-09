@@ -2,6 +2,8 @@ package com.thanh.ha.sampleapp
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.thanh.ha.piechart.PieChart
@@ -60,11 +62,19 @@ class MainActivity : AppCompatActivity() {
             pieChartView3.animateProgress(0, 300)
             pieChartView4.animateProgress(0, 360)
         }
+
     }
 
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+    }
     private fun getRandomColor(): Int {
         val rnd = Random()
-        val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-        return color
+        return Color.argb(200, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
     }
 }

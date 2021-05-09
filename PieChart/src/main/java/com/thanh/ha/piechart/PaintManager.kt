@@ -54,6 +54,7 @@ object PaintManager {
         mainPaint.apply {
             isAntiAlias = true
             color = Color.BLACK
+            isDither = true
             style = Paint.Style.STROKE
             this.strokeWidth = strokeWidth
             strokeCap = when (strokeRadius >= 1f) {

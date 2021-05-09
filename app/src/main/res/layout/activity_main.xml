@@ -8,24 +8,14 @@
     android:clipChildren="false"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText,SmallSp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Basic chart"
-            android:textSize="8sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/pieChart"
-            app:layout_constraintEnd_toEndOf="@id/pieChart"
-            app:layout_constraintStart_toStartOf="@id/pieChart"
-            app:layout_constraintTop_toTopOf="@id/pieChart" />
 
         <com.thanh.ha.piechart.PieChart
             android:id="@+id/pieChart"
@@ -40,10 +30,23 @@
             app:itemTextSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:pieStrokeWidth="15dp"
             app:shadowAlpha="0.2"
             app:shadowDy="10dp"
             app:shadowRadius="10dp"
             app:textFontFamily="@font/noto_sans_jp_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Basic chart"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/pieChart"
+            app:layout_constraintEnd_toEndOf="@id/pieChart"
+            app:layout_constraintStart_toStartOf="@id/pieChart"
+            app:layout_constraintTop_toTopOf="@id/pieChart" />
 
         <View
             android:layout_width="match_parent"
@@ -56,13 +59,6 @@
             android:layout_height="1500dp"
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="@id/pieChart"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="1500dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toStartOf="@id/pieChart2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -93,10 +89,10 @@
             app:initAngle="-90"
             app:isMultiColorShadow="true"
             app:itemTextColor="@color/white"
-            app:itemTextSize="10sp"
+            app:itemTextSize="8sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/pieChart"
-            app:pieStrokeWidth="40dp"
+            app:pieStrokeWidth="35dp"
             app:shadowAlpha="0.5"
             app:shadowDy="10dp"
             app:shadowRadius="10dp"
@@ -124,7 +120,6 @@ start and end angle"
             app:initAngle="120"
             app:isMultiColorShadow="false"
             app:itemTextColor="@color/white"
-            app:strokeRadius="10dp"
             app:itemTextSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pieChart"
@@ -132,6 +127,7 @@ start and end angle"
             app:shadowAlpha="0.2"
             app:shadowDy="10dp"
             app:shadowRadius="10dp"
+            app:strokeRadius="10dp"
             app:textFontFamily="@font/noto_sans_jp_bold" />
 
         <TextView
@@ -157,6 +153,7 @@ start and end angle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/pieChart3"
             app:shadowAlpha="0.2"
+            app:pieStrokeWidth="10dp"
             app:shadowDx="0dp"
             app:shadowDy="10dp"
             app:shadowRadius="10dp"
