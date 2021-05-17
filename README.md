@@ -47,3 +47,14 @@ Step 2. Add the dependency
             app:shadowRadius="10dp" : Radius for chart shadow
             
             app:textFontFamily="@font/noto_sans_jp_bold" : Pie text font
+## Code example: 
+	    val list = listOf(
+		    PieItem(20f, getColor(R.color.purple_500)),
+		    PieItem(40f, getColor(R.color.red)),
+		    PieItem(80f, getColor(R.color.purple_700)),
+		    PieItem(100f, getColor(R.color.teal_700)),
+		    PieItem(120f, getColor(R.color.purple_200)
+		    ),
+		)
+	    pieChartView.submitList(list)
+	    pieChartView.animateProgress(0, 360)
