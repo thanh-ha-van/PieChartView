@@ -24,7 +24,6 @@ class PieChart : View {
         const val PERCENTAGE_VALUE_HOLDER = "percentage"
     }
 
-    var animationType = 0
     var textColor: Int = 0
     var itemFont: Int = 0
     var itemTextSize: Float = 0f
@@ -124,7 +123,6 @@ class PieChart : View {
                     getInteger(R.styleable.PieChart_animationDuration, 1000).toLong()
                 isMultipleShadowColor =
                     getBoolean(R.styleable.PieChart_isMultiColorShadow, true)
-                animationType = getInteger(R.styleable.PieChart_animationType, 0)
                 initAngle = getInteger(R.styleable.PieChart_initAngle, 0).toFloat()
                 textColor = getColor(R.styleable.PieChart_itemTextColor, Color.WHITE)
                 itemTextSize = getDimension(R.styleable.PieChart_itemTextSize, 14f)

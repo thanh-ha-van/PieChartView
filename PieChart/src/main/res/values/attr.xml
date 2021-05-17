@@ -2,11 +2,6 @@
 <resources>
     <declare-styleable name="PieChart">
         <attr name="animationDuration" format="integer" />
-        <attr name="animationType" format="enum">
-            <enum name="goAround" value="0" />
-            <enum name="innerOut" value="1" />
-            <enum name="oneByOne" value="2" />
-        </attr>
         <attr name="initAngle" format="integer" />
         <attr name="pieStrokeWidth" format="dimension" />
         <attr name="itemTextColor" format="color" />
