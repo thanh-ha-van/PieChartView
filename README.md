@@ -15,7 +15,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.havanthanh-mfv:PieChartView:1.0.1'
+	        implementation 'com.github.havanthanh-mfv:PieChartView:1.0.2'
 	}
 
 # Feature: 
@@ -47,3 +47,14 @@ Step 2. Add the dependency
             app:shadowRadius="10dp" : Radius for chart shadow
             
             app:textFontFamily="@font/noto_sans_jp_bold" : Pie text font
+## Code example: 
+	    val list = listOf(
+		    PieItem(20f, getColor(R.color.purple_500)),
+		    PieItem(40f, getColor(R.color.red)),
+		    PieItem(80f, getColor(R.color.purple_700)),
+		    PieItem(100f, getColor(R.color.teal_700)),
+		    PieItem(120f, getColor(R.color.purple_200)
+		    ),
+		)
+	    pieChartView.submitList(list)
+	    pieChartView.animateProgress(0, 360)
