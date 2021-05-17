@@ -9,7 +9,11 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import androidx.annotation.AttrRes
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -20,9 +24,26 @@ class PieChart : View {
         const val PERCENTAGE_VALUE_HOLDER = "percentage"
     }
 
+    var animationType = 0
+    var textColor: Int = 0
+    var itemFont: Int = 0
+    var itemTextSize: Float = 0f
+    var isMultipleShadowColor = true
+    var shadowRadius = 0f
+    var shadowDx = 0f
+    var shadowDy = 0f
+    var shadowAlpha = 0.3f
+    var strokeWidth = 0f
+    var clockWiseMultiplier = 1
+    var strokeRadius = 0f
+    var initAngle = 0f
+    var animationTime = 1000L
+    var interpolator = LinearInterpolator()
+
+    private val dataList: MutableList<PieItem> = mutableListOf()
+
     // for animation properties
     private var currentScale = 360
-    private var initAngle = 0f
     private var currentAngle = 0f
     private var textInterDistance = 0
 
@@ -31,26 +52,10 @@ class PieChart : View {
     private lateinit var textPaint: Paint
     private lateinit var erasor: Paint
 
-    private val dataList: MutableList<PieItem> = mutableListOf()
-
     private var radius: Float = 0f
     private var widthFloat: Float = 0f
     private var heightFloat: Float = 0f
 
-    private var animationTime = 1000L
-
-    private var animationType = 0
-    private var textColor: Int = 0
-    private var itemFont: Int = 0
-    private var itemTextSize: Float = 0f
-    private var isMultipleShadowColor = true
-    private var shadowRadius = 0f
-    private var shadowDx = 0f
-    private var shadowDy = 0f
-    private var shadowAlpha = 0.3f
-    private var strokeWidth = 0f
-    private var clockWiseMultiplier = 1
-    private var strokeRadius = 0f
     private val oval = RectF()
 
     constructor(context: Context) : this(context, null, 0)
@@ -90,6 +95,7 @@ class PieChart : View {
     fun animateProgress(from: Int, to: Int) {
         val valuesHolder = PropertyValuesHolder.ofInt(PERCENTAGE_VALUE_HOLDER, from, to)
         val animator = ValueAnimator().apply {
+            interpolator = this@PieChart.interpolator
             setValues(valuesHolder)
             duration = animationTime
             addUpdateListener {
@@ -178,7 +184,7 @@ class PieChart : View {
         super.onDraw(canvas)
         // translate into center of view
         canvas.translate(widthFloat / 2, heightFloat / 2)
-        if (isMultipleShadowColor) {
+        if (isMultipleShadowColor && dataList.size < 36) {
             drawShadow(canvas)
         } else {
             drawSingleShadow(canvas)
@@ -226,10 +232,6 @@ class PieChart : View {
                 mainPaint.apply {
                     color = item.color
                 })
-//            val xyStart =
-//                getVectorXY(getStarAngle() + getItemValue(item), (radius - strokeWidth).toInt())
-//            val xyEnd = getVectorXY(getStarAngle() + getItemValue(item), radius.toInt())
-            //  canvas.drawLine(xyStart.first, xyStart.second, xyEnd.first, xyEnd.second, erasor)
             currentAngle += item.value
 
 
