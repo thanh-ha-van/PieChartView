@@ -9,11 +9,9 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateInterpolator
+import android.view.animation.Interpolator
 import android.view.animation.LinearInterpolator
 import androidx.annotation.AttrRes
-import androidx.interpolator.view.animation.FastOutLinearInInterpolator
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -37,7 +35,7 @@ class PieChart : View {
     var strokeRadius = 0f
     var initAngle = 0f
     var animationTime = 1000L
-    var interpolator = LinearInterpolator()
+    var interpolator: Interpolator = LinearInterpolator()
 
     private val dataList: MutableList<PieItem> = mutableListOf()
 
